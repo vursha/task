@@ -1,0 +1,26 @@
+.app{
+  font-family: Montserrat,sans-serif;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  height:100vh;
+  background-color:burlywood;
+  color:coral;
+}
+h1{
+  font-size: 6rem;
+
+}
+.button{
+  display: flex;
+  gap:1rem;
+}
+.beforeFive{
+  color:crimson;
+
+}
+.afterFive{
+  color: darkgreen;
+}
