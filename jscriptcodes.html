@@ -1,0 +1,304 @@
+<script>
+    //== and ===
+    var x = 2;
+    var y="2";
+    z=(x==y);
+    console.log(z);
+    z1=(x===y);
+    console.log(z1);
+
+    // Hoisting takes place in the local scope as well
+    function doSomething(){
+    x = 33;
+    console.log(x);
+    var x;
+    }
+
+    var x;
+    console.log(x); // Outputs "undefined"  x is not hoisted
+    x = 23;
+    
+    //this keyword:
+    var obj = {
+    name:  "vivek",
+    getName: function(){
+    console.log(this.name);
+    }
+        
+    }
+    var getName = obj.getName;
+    var obj2 = {name:"akshay", getName };
+    obj2.getName();     //output akshay
+
+    
+    var obj1 = {
+    address : "Mumbai,India",
+    getAddress: function(){
+    console.log(this.address); 
+    }
+    }
+       
+    var getAddress = obj1.getAddress;
+    var obj2 = {name:"akshay"};
+    obj2.getAddress();  //output error bcoz in obj 2 address is not defined
+  
+
+    //global scope
+    var globalVariable = "Hello world";
+
+    function sendMessage(){
+    return globalVariable; // can access globalVariable since it's written in global space
+    }
+
+    function sendMessage2(){
+    return sendMessage(); // Can access sendMessage function since it's written in global space
+    }
+    sendMessage2();  // output “Hello world”
+
+    //function scope:
+
+    function Function(){
+    var a = 2;
+    var multiplyBy2 = function(){
+    console.log(a*2); // Can access variable "a" since a and multiplyBy2 both are written inside the same function
+    }
+    }
+    console.log(a); // Throws reference error since a is written in local scope and cannot be accessed outside
+    multiplyBy2(); // Throws reference error since multiplyBy2 is written in local scope
+
+    //block scope:
+    {
+    let x = 45;
+    }
+    console.log(x); // Gives reference error since x cannot be accessed outside of the block
+    for(let i=0; i<2; i++){
+   
+    }
+    console.log(i); // Gives reference error since i cannot be accessed outside of the for loop block
+
+    //operator precedence:
+    //x=52 bcoz * is second precendence where + is third
+    let x=2+5*10;
+    let x1=(2+5)*10;
+    console.log(x1);
+
+    //callBack:
+    function divideByHalf(sum){
+    console.log(Math.floor(sum / 2));
+    }
+    function multiplyBy2(sum){
+    console.log(sum * 2);
+    }
+    function operationOnSum(num1,num2,operation){
+    var sum = num1 + num2;
+    operation(sum);
+    }
+    operationOnSum(3, 3, divideByHalf); // Outputs 3
+    operationOnSum(5, 5, multiplyBy2); // Outputs 20
+
+    //for in loop:
+    const Person={
+        name : "udaya",
+        lastName : "kumar",
+        age :50
+    }
+    
+    //for in(obj):
+    for(let index in Person)
+    console.log(index + ":",Person[index]);
+
+    //for in(array)
+    let colors=['red','blue','pink','green'];
+    for(let col in colors)
+    console.log(col);
+
+    //for of:
+    for(let cols of colors)
+    console.log("cols:" + cols);
+
+    //enumerating property of an obj:
+    const user={
+        name:"sha",
+        age:22,
+        getFullName(){
+            console.log(`my name is ${this.name}`);
+        }
+    }
+    for(let key in user)
+    console.log(key,user[key]);
+
+    for(let key of Object.keys(user))
+    console.log(key);
+
+    for(let index of Object.entries(user))
+    console.log(index);
+
+    //spread operator:
+    let another = {...user}
+    console.log(another);
+
+    //Tenary operator:
+    //by using if:
+    let age=number;
+    function number(age){
+    if (age>18){
+        console.log("too elder");
+    }
+    else{
+        console.log("young");
+    }
+    }
+    age(4);
+    //by using tenary operator:
+    let ages=5;
+    aged = ages>18 ? "too young" : "too elder";
+    console.log(aged);
+
+    //math operator:
+    let math=Math.ceil(0.9);
+    console.log(math);
+    let random = Math.random()*(100-1)+1;
+    console.log(random);
+
+    //Template literals:
+    const name="ravi";
+    const greet=`hello ${name}, Welcome to my "sweet" home.
+    its pleasure to meet u
+    
+    
+    by ${name}`;
+    console.log(greet);
+    
+    //Date:
+    const d=new Date();
+    console.log(d);
+    d.setFullYear();
+
+
+    //array :
+    const orders=[
+        {id:2,item:"apple"},
+        {id :5,item:"orange"},
+        {id:9,item:"mango"},
+    ];
+    let fruits=orders.find((order) => order.item === "orange");
+    
+    console.log(fruits);
+
+    //array sort:
+    orders.sort((a,b) =>{
+        if (a.item < b.item) return -1;
+        if (a.item > b.item) return  1;
+        else return 0;
+    });
+    console.log(orders);
+
+    //map:
+    var arr=[30000,40000,35678,56789];
+    var newArr=arr.map((val) =>
+    {
+           return val+(val*10)/100;
+    })
+    console.log(newArr);
+
+    //chaining methods:
+    let Products=[
+        {id :1,title :"phone",cost :3000},
+        {id :3,title :"laptop",cost :25000},
+        {id :8,title :"tv", cost:50000}
+    ];
+     let Final=Products.sort(function(a,b){
+        return a.cost-b.cost;
+    }).sort(function(a,b){
+        if (a.title<b.title)return -1;
+        if (a.title>b.title)return 1;
+        return 1;
+    }).filter(function(value){
+        return value.cost<=20000;
+    }).map(function(val){
+        return val.title + "-₹" +val.cost
+    });
+    console.log(Final);
+
+    //reduce function:
+    const array1 = [1, 2, 3, 4];
+    const reducer = array1.reduce((previousValue, currentValue) => previousValue + currentValue);
+    console.log(reducer);
+    //console.log(array1.reduce(reducer, 5));
+
+    //getters and setters:
+    const Person1={
+        name:"vursha",
+        lastName:"kumar",
+        age:22,
+        get FullName(){
+           return` ${Person1.name} ${Person1.lastName}`;
+        },
+        set FullName(value){
+            let values= value.split(" ");
+            this.name = values[0];
+            this.lastName= values[1];
+        }
+    };
+    Person1.FullName="lakshmi"
+    console.log(Person1.FullName);
+
+
+    //task array destructuring:
+    add2(1,2,3,4,4,55,66);
+    function add2(a,b,...c){
+		console.log(a);
+		console.log(b);
+
+		//for(var i of c)
+		//console.log(i);
+        const num=c;
+        let[d,e,f,g,h] = num;
+        console.log("d value is:" +d);
+        console.log("e value is:" +e);
+        console.log("f value is:" +f);
+        console.log("g value is:" +g);
+        console.log("h value is:" +h);
+    }	
+
+    //variable hoisting:
+    a=10;
+    console.log(a);
+    var a;
+
+    //self invoking function hoisting:
+    //let name1="abc"
+    (function (){
+        let name="pqr"
+        console.log(name)
+    })();
+
+    /*a();
+    function a(){
+        console.log("hello");
+    };*/
+
+    //obj hoisting: - undefined
+    console.log(ab);
+    var ab={
+        name:"abs"
+    };
+
+
+    
+    
+	
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+</script>
